@@ -8,127 +8,49 @@
         body { font-family: Arial, sans-serif; background-color: #2E2E2E; color: white; padding: 15px; }
         h1, h2, h3 { border-bottom: 1px solid #505050; padding-bottom: 5px; }
         h1 { text-align: center; }
-        
-        /* --- Estilo do Disclaimer (Quadro de Atenção) --- */
-        .disclaimer {
-            background-color: #6a5d00; /* Um amarelo-escuro */
-            border: 1px solid #FFC107;
-            color: #ffffff;
-            padding: 10px 15px;
-            border-radius: 4px;
-            text-align: center;
-            font-size: 0.9em;
-            margin-top: 20px; /* Adiciona espaço acima dele no final */
-        }
 
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
+        /* --- Estilo do Disclaimer --- */
+        .disclaimer { background-color: #6a5d00; border: 1px solid #FFC107; color: #ffffff; padding: 10px 15px; border-radius: 4px; text-align: center; font-size: 0.9em; margin-top: 20px; }
 
-        textarea, pre {
-            background-color: #404040;
-            color: white;
-            border: 1px solid #505050;
-            border-radius: 4px;
-            padding: 10px;
-            font-family: "Courier New", monospace;
-            font-size: 14px;
-            box-sizing: border-box; 
-            width: 100%;
-        }
+        .container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-        .editor-container {
-            position: relative;
-            height: 450px; 
-        }
-        
-        textarea#code-input {
-            height: 100%; 
-            resize: vertical;
-        }
-        
-        .floating-btn {
-            position: absolute; 
-            font: 8pt Arial bold;
-            background-color: #333333;
-            color: white;
-            border: none;
-            padding: 4px 6px;
-            cursor: pointer;
-            z-index: 10; 
-        }
+        textarea, pre { background-color: #404040; color: white; border: 1px solid #505050; border-radius: 4px; padding: 10px; font-family: "Courier New", monospace; font-size: 14px; box-sizing: border-box; width: 100%; }
+
+        .editor-container { position: relative; height: 450px; }
+        textarea#code-input { height: 100%; resize: vertical; }
+
+        .floating-btn { position: absolute; font: 8pt Arial bold; background-color: #333333; color: white; border: none; padding: 4px 6px; cursor: pointer; z-index: 10; }
         .floating-btn:hover { background-color: #707070; }
 
         #copy-code-btn { bottom: 10px; right: 10px; }
         #paste-code-btn { bottom: 10px; right: 105px; }
+        #clear-code-btn { bottom: 10px; right: 200px; }
 
-        .console-container {
-            position: relative;
-            height: 450px; 
-        }
-
-        pre#console-output {
-            height: 100%; 
-            overflow-y: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        
+        .console-container { position: relative; height: 450px; }
+        pre#console-output { height: 100%; overflow-y: auto; white-space: pre-wrap; word-wrap: break-word; }
         #copy-console-btn { bottom: 10px; right: 10px; }
 
-        div#video-container {
-            background-color: #000;
-            border: 1px solid #505050;
-            border-radius: 4px;
-            height: 400px; /* Altura fixa para o player */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden; /* Garante que nada vaze */
-        }
-        
-        video {
-            max-width: 100%;   /* O vídeo nunca será mais largo que o container */
-            max-height: 100%; /* O vídeo nunca será mais alto que o container */
-        }
+        div#video-container { background-color: #000; border: 1px solid #505050; border-radius: 4px; height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        video { max-width: 100%; max-height: 100%; }
 
-        .info-box {
-            background-color: #404040;
-            border: 1px solid #505050;
-            border-radius: 4px;
-            padding: 15px;
-            margin-top: 15px;
-        }
+        .info-box { background-color: #404040; border: 1px solid #505050; border-radius: 4px; padding: 15px; margin-top: 15px; }
         .info-box ul { padding-left: 20px; }
         .info-box li { margin-bottom: 10px; }
 
         .controls { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 10px; }
-        button, select {
-            background-color: #FFFFFF;
-            color: #016F01;
-            font: 10pt Arial bold;
-            padding: 5px 15px;
-            border: 2px solid #016F01;
-            cursor: pointer;
-            border-radius: 3px;
-        }
+        button, select { background-color: #FFFFFF; color: #016F01; font: 10pt Arial bold; padding: 5px 15px; border: 2px solid #016F01; cursor: pointer; border-radius: 3px; }
         button:hover:not(:disabled) { background-color: #F0FFF0; }
         button:disabled { background-color: #707070; color: #AAA; border-color: #505050; cursor: not-allowed; }
-        
+
         pre.error { color: #FF6B6B; }
         pre.success { color: lightgreen; }
     </style>
 </head>
 <body>
-
     <h1>AniManim: Animações com Manim</h1>
-    
     <div class="container">
         <div>
             <h3>1. Cole seu código Manim</h3>
-            
             <div class="editor-container">
                 <textarea id="code-input">
 from manim import *
@@ -138,21 +60,20 @@ class MinhaCena(Scene):
         # Escreva seu código aqui
         circulo = Circle().set_fill(BLUE, opacity=0.5)
         quadrado = Square().set_fill(RED, opacity=0.5)
-        
+
         self.play(Create(circulo))
         self.wait(1)
         self.play(Transform(circulo, quadrado))
         self.wait(1)
 </textarea>
+                <button id="clear-code-btn" class="floating-btn">Apagar Código</button>
                 <button id="paste-code-btn" class="floating-btn">Colar Código</button>
                 <button id="copy-code-btn" class="floating-btn">Copiar Código</button>
             </div>
-            
+
             <div class="controls">
                 <select id="quality-select">
                     <option value="-ql">Baixa (480p)</option>
-                    <option value="-qm">Média (720p)</option>
-                    <option value="-qh">Alta (1080p)</option>
                 </select>
                 <button id="render-btn">Renderizar</button>
             </div>
@@ -160,18 +81,16 @@ class MinhaCena(Scene):
             <div class="info-box">
                 <h2>Sobre esta Aplicação</h2>
                 <p>Este programa foi desenvolvido com o auxílio de Inteligência Artificial (IA) e será utilizado como produto educacional em uma dissertação de mestrado do PROFMAT.</p>
-                
-                <h2>Como foi criado?</h2>
-                <p>O desenvolvimento foi um processo iterativo... (a IA gerou, refinou e depurou o código Python...)</p>
-                
                 <h2>Como Usar</h2>
                 <ul>
                     <li><strong>Cole o código:</strong> Insira seu script Manim na caixa de texto.</li>
-                    <li><strong>Qualidade:</strong> Escolha a qualidade da animação no menu (ao lado do 'i').</li>
+                    <li><strong>Qualidade:</strong> Escolha a qualidade da animação. Limitado para fins de teste no servidor web. Para vídeos em 1080p, utilize a versão Desktop.</li>
                     <li><strong>Renderizar:</strong> Executa o código e abre o player de vídeo.</li>
-                    <li><strong>Salvar Vídeo:</strong> Este botão NÃO renderiza novamente. Ele apenas permite que você salve o vídeo mais recente (que já foi renderizado) em um local de sua escolha.</li>
-                    <li><p><strong>Importante:</strong> Cada vez que você clica em 'Renderizar', o arquivo de vídeo é salvo automaticamente em uma pasta chamada 'media' (criada dentro da pasta deste aplicativo). O botão 'Salvar Vídeo' serve apenas para copiar esse arquivo para outro lugar (ex: sua Área de Trabalho).</p></li>
-                    <li><strong>Console:</strong> Mostra o status da renderização ou mensagens de erro.</li>
+                    <li><strong>Para baixar:</strong> Após renderizar, utilize os 3 pontinhos no canto inferior direito do vídeo..</li>
+                    <li><strong>Exemplos de códigos:</strong> <a href="https://hipopotato.github.io/ladrilhamentos.html">Acesse aqui</a> </li>
+                    <li><strong>Versão Executável:</strong> <a href="https://hipopotato.github.io/animanimexe.html">Acesse aqui</a> </li>
+                    <li><strong>Opções de IA's:</strong> <a href="https://chatgpt.com/">Chat GPT</a> e <a href="https://gemini.google.com/">Gloogle Gemini</a> </li>
+                    <li><strong>Código Fonte</strong> <a href="https://github.com/hipopotato/animanim">Acesse o código do AniManim</a> </li>
                 </ul>
             </div>
         </div>
@@ -181,7 +100,7 @@ class MinhaCena(Scene):
             <div id="video-container">
                 <span>O vídeo aparecerá aqui.</span>
             </div>
-            
+
             <div class="console-container">
                 <pre id="console-output">(O console mostrará os erros ou logs do Manim)</pre>
                 <button id="copy-console-btn" class="floating-btn">Copiar Mensagem</button>
@@ -190,7 +109,6 @@ class MinhaCena(Scene):
     </div>
 
     <script>
-        // Pega os elementos da página
         const renderButton = document.getElementById('render-btn');
         const codeInput = document.getElementById('code-input');
         const qualitySelect = document.getElementById('quality-select');
@@ -199,13 +117,13 @@ class MinhaCena(Scene):
 
         const copyCodeBtn = document.getElementById('copy-code-btn');
         const pasteCodeBtn = document.getElementById('paste-code-btn');
+        const clearCodeBtn = document.getElementById('clear-code-btn');
         const copyConsoleBtn = document.getElementById('copy-console-btn');
 
-        // Lógica do Botão de Renderizar
         renderButton.addEventListener('click', async () => {
             const code = codeInput.value;
             const quality = qualitySelect.value;
-            
+
             renderButton.disabled = true;
             renderButton.textContent = 'Renderizando...';
             consoleOutput.textContent = 'Enviando código para o servidor...';
@@ -243,39 +161,36 @@ class MinhaCena(Scene):
             }
         });
 
-        // --- Lógica dos Botões Flutuantes ---
+        clearCodeBtn.addEventListener('click', () => {
+            if (confirm('Tem certeza que deseja apagar todo o código do editor?')) {
+                codeInput.value = '';
+            }
+        });
 
         copyCodeBtn.addEventListener('click', () => {
             navigator.clipboard.writeText(codeInput.value)
                 .then(() => { alert('Código copiado para a área de transferência!'); })
-                .catch(err => { console.error('Falha ao copiar código: ', err); });
+                .catch(err => { console.error('Erro: ', err); });
         });
 
         pasteCodeBtn.addEventListener('click', async () => {
             try {
                 const text = await navigator.clipboard.readText();
-                if (text) {
-                    codeInput.value = text;
-                    alert('Código colado!');
-                } else {
-                    alert('Área de transferência vazia.');
-                }
+                if (text) { codeInput.value = text; alert('Código colado!'); }
             } catch (err) {
-                console.error('Falha ao colar: ', err);
-                alert('O navegador bloqueou o botão "Colar" por segurança. Use Ctrl+V para colar manualmente.');
+                alert('O navegador bloqueou o botão. Use Ctrl+V para colar manualmente.');
             }
         });
 
         copyConsoleBtn.addEventListener('click', () => {
             navigator.clipboard.writeText(consoleOutput.textContent)
                 .then(() => { alert('Mensagem do console copiada!'); })
-                .catch(err => { console.error('Falha ao copiar console: ', err); });
+                .catch(err => { console.error('Erro: ', err); });
         });
     </script>
-    
+
     <div class="disclaimer">
         <strong>Atenção:</strong> Esta é apenas uma experiência e pode conter muitos erros, pois foi realizada com IA e uma professora de matemática, não uma programadora.
     </div>
-
 </body>
 </html>
